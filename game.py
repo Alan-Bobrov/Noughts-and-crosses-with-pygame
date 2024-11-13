@@ -20,9 +20,10 @@ def NoughtsAndCrosses():
     infinite_mode = False
     now_move = "X" # X or O
     tournament_mode = False
+    X_score = 0
+    Y_score = 0
 
     field = Field()
-
 
     # #screen.blit(Cross, (280, 160))
     # screen.blit(Cross, (280, 160))
@@ -59,6 +60,9 @@ def NoughtsAndCrosses():
                             now_move = "O"
                         else:
                             now_move = "X"
+            
+                elif (x**2 - 56**2) + (y**2 - 56**2) <= 56**2 :
+                    print("--------")
 
 
 
