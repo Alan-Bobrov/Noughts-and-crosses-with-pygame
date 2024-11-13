@@ -22,6 +22,7 @@ def NoughtsAndCrosses():
     tournament_mode = False
     X_score = 0
     Y_score = 0
+    winner_found = False
 
     field = Field()
 
@@ -46,23 +47,36 @@ def NoughtsAndCrosses():
                 x, y = pg.mouse.get_pos()
                 print(x, y)
 
-                if (280 <= x <= 616) and (160 <= y <= 496):
+                if (280 <= x <= 592) and (160 <= y <= 472) and (winner_found == False or tournament_mode):
                     print('----------1')
                     x, y = СhangeСoordinates(x, y)
                     print("--", x, y)
                     end_attack = field.Attack(x, y, now_move)
+                    field.PrintField()
 
                     if end_attack[1] == True:
-                        print(f"Win code will be here (winner - {now_move}) ")
+                        if tournament_mode == True:
+                            if now_move == "X":
+                                X_score += 1
+                            else:
+                                Y_score += 1
+                        else:
+                            print(f"Win code will be here (winner - {now_move}) ")
+                            winner_found = True
                     
                     if end_attack[0]:
                         if now_move == "X":
                             now_move = "O"
                         else:
                             now_move = "X"
+
+                elif (337 <= x <= 536) and (488 <= y <= 575):
+                    field = Field()
+                    now_move = "X"
             
-                elif (x**2 - 56**2) + (y**2 - 56**2) <= 56**2 :
-                    print("--------")
+                elif (x - 63)**2 + (y - 63)**2 <= 60**2 :
+                    print("--------", x, y)
+                
 
 
 
