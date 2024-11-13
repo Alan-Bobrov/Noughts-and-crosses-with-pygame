@@ -9,6 +9,7 @@ except:
 
 from classes import *
 from loads_images import *
+from functions import *
 
 def NoughtsAndCrosses():
     pg.init()
@@ -35,7 +36,7 @@ def NoughtsAndCrosses():
                 print(x, y)
 
                 if () and ():
-                    x, y = 
+                    x, y = СhangeСoordinates
                     end_attack = field.Attack(x, y, now_move)
 
                     if end_attack[1] == True:
