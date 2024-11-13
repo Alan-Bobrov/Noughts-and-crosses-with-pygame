@@ -14,6 +14,10 @@ class Field:
         f = [[[(280 + 112 * X, 160 + 112 * Y), "-", 0] for X in range(3)] for Y in range(3) ]
         self.field = f
     
+    def ClearField(self):
+        f = [[[(280 + 112 * X, 160 + 112 * Y), "-", 0] for X in range(3)] for Y in range(3) ]
+        self.field = f
+    
     def PrintField(self) -> None:
         field = self.field
         for i in field:
