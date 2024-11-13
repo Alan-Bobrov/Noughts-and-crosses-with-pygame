@@ -16,3 +16,5 @@ Seven = Load("seven")
 Eight = Load("eight")
 Nine = Load("nine")
 
+Cross = Load("cross")
+Nought = Load("nought")
