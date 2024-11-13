@@ -1,6 +1,17 @@
+# pip install pygame
+try:
+    import pygame as pg
+except:
+    from sys import executable
+    from subprocess import check_call
+    check_call([executable, '-m', 'pip', 'install', 'pygame'])
+    import pygame as pg
+
+from loads_images import *
+
 class Field:
     def __init__(self) -> None:
-        f = [[[(0, 0), "-", 0] for _ in range(3)] for __ in range(3) ]
+        f = [[[(280 + 112 * X, 160 + 112 * Y), "-", 0] for X in range(3)] for Y in range(3) ]
         self.field = f
     
     def PrintField(self) -> None:
@@ -12,6 +23,14 @@ class Field:
         print()
         print()
         print()
+
+    def DrawField(self, screen):
+        for i in self.field:
+            for j in i:
+                if j[1] == "X":
+                    screen.blit(Cross, (j[0][0], j[0][1]))
+                elif j[1] == "O":
+                    screen.blit(Nought, (j[0][0], j[0][1]))
     
     def TestEndGame(self) -> bool:
         field = self.field
@@ -40,9 +59,9 @@ class Field:
 
 
 
-f = Field()
-f.PrintField()
-print(f.Attack(0, 2, "X"))
-print(f.Attack(1, 2, "X"))
-print(f.Attack(2, 2, "X"))
-f.PrintField()
+# f = Field()
+# f.PrintField()
+# print(f.Attack(0, 2, "X"))
+# print(f.Attack(1, 2, "X"))
+# print(f.Attack(2, 2, "X"))
+# f.PrintField()
