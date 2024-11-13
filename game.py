@@ -15,7 +15,6 @@ def NoughtsAndCrosses():
     pg.init()
     screen = pg.display.set_mode((600, 600))
     screen.fill((255, 255, 255))
-    screen.blit(FieldImg, (0, 0))
 
     is_game = True
     infinite_mode = False
@@ -25,7 +24,18 @@ def NoughtsAndCrosses():
     field = Field()
 
 
+    # #screen.blit(Cross, (280, 160))
+    # screen.blit(Cross, (280, 160))
+    # # screen.blit(Cross, (280 + 112, 160))
+    # # screen.blit(Cross, (280 + 112 * 2, 160))
+    # screen.blit(Cross, (280, 160 + 112))
     while is_game:
+        screen.blit(FieldImg, (0, 0))
+        field.DrawField(screen)
+        if now_move == "X":
+            screen.blit(Cross, (496,  48))
+        else:
+            screen.blit(Nought, (496,  48))
 
         for event in pg.event.get():
             if event.type == pg.QUIT:
@@ -35,8 +45,10 @@ def NoughtsAndCrosses():
                 x, y = pg.mouse.get_pos()
                 print(x, y)
 
-                if () and ():
-                    x, y = СhangeСoordinates
+                if (280 <= x <= 616) and (160 <= y <= 496):
+                    print('----------1')
+                    x, y = СhangeСoordinates(x, y)
+                    print("--", x, y)
                     end_attack = field.Attack(x, y, now_move)
 
                     if end_attack[1] == True:
@@ -47,6 +59,7 @@ def NoughtsAndCrosses():
                             now_move = "O"
                         else:
                             now_move = "X"
+
 
 
         pg.display.flip()
