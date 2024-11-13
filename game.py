@@ -15,6 +15,7 @@ def NoughtsAndCrosses():
     pg.init()
     screen = pg.display.set_mode((600, 600))
     screen.fill((255, 255, 255))
+    screen.blit(FieldImg, (0, 0))
 
     is_game = True
     infinite_mode = False
@@ -71,8 +72,15 @@ def NoughtsAndCrosses():
                             now_move = "X"
 
                 elif (337 <= x <= 536) and (488 <= y <= 575):
+                    screen.blit(FieldImg, (0, 0))
+                    
                     field = Field()
                     now_move = "X"
+                    winner_found = False
+
+                    screen = pg.display.set_mode((600, 600))
+                    screen.fill((255, 255, 255))
+                    screen.blit(FieldImg, (0, 0))
             
                 elif (x - 63)**2 + (y - 63)**2 <= 60**2 :
                     print("--------", x, y)
