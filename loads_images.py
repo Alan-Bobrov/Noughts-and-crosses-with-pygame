@@ -4,6 +4,7 @@ def Load(image):
     return load(f"images/{image}.png")
 
 FieldImg = Load("field")
+TournamentMenu = Load("tournament_menu")
 
 Zero = Load("zero")
 One = Load("one")
@@ -18,3 +19,7 @@ Nine = Load("nine")
 
 Cross = Load("cross")
 Nought = Load("nought")
+
+CrossWon = Load("cross won")
+NoughtWon = Load("nought won")
+Draw = Load("draw")
