@@ -31,6 +31,14 @@ class Field:
                     screen.blit(Cross, (j[0][0], j[0][1]))
                 elif j[1] == "O":
                     screen.blit(Nought, (j[0][0], j[0][1]))
+
+    def CountFreePlace(self):
+        c = 0
+        for i in self.field:
+            for j in i:
+                if j[1] == "-":
+                    c += 1
+        return c
     
     def TestEndGame(self) -> bool:
         field = self.field
