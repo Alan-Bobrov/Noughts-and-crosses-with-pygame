@@ -65,7 +65,9 @@ class Field:
         else:
             return False, False
 
-
+class Bot:
+    def __init__(self, name="funny bot :)") -> None: 
+        self.name = name
 
 # f = Field()
 # f.PrintField()
