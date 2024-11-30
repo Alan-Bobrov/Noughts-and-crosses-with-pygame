@@ -22,7 +22,7 @@ def NoughtsAndCrosses():
     is_game = True
     infinite_mode = False
     now_move = "X" # X or O
-    tournament_mode = False
+    tournament_mode = True
     X_score = 0
     O_score = 0
     winner_found = False
@@ -70,6 +70,7 @@ def NoughtsAndCrosses():
 
             for i in range(len(O_score_str)):
                 screen.blit(digits[O_score_str[i]], (120 + i * 48, 392))
+
         if now_move == "X":
             screen.blit(Cross, (496,  48))
         else:
@@ -104,8 +105,11 @@ def NoughtsAndCrosses():
                             winner_found = True
 
                     if winner_found == False and field.CountFreePlace() == 0:
-                        winner_found = True
-                        screen.blit(Draw, (16, 224))
+                        if tournament_mode == False:
+                            winner_found = True
+                            screen.blit(Draw, (16, 224))
+                        elif tournament_mode == True:
+                            X_score, O_score, field, now_move, winner_found = ClearField(False, None, X_score, O_score, screen)
                     
                     if end_attack[0]:
                         if now_move == "X":
@@ -129,6 +133,7 @@ def NoughtsAndCrosses():
                         screen.blit(FieldImg, (0, 0))
 
                         print("---------------2")
+                        
 
 
         pg.display.flip()
