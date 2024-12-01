@@ -22,10 +22,13 @@ def NoughtsAndCrosses():
     is_game = True
     infinite_mode = False
     now_move = "X" # X or O
-    tournament_mode = True
+    tournament_mode = False
     X_score = 0
     O_score = 0
     winner_found = False
+    num_move = 0
+    play_with_bot = True
+    bot = Bot()
     digits = {
         "0": Zero,
         "1": One,
@@ -38,6 +41,7 @@ def NoughtsAndCrosses():
         "8": Eight,
         "9": Nine
     }
+    
 
     def ClearField(score, who, X_score, O_score, screen):
         if score:
@@ -76,6 +80,35 @@ def NoughtsAndCrosses():
         else:
             screen.blit(Nought, (496,  48))
 
+        if play_with_bot == True and winner_found == False and num_move % 2 == 1:
+            coords = bot.attack(field)
+            end_bot_attack = field.Attack(coords[0], coords[1], "O")
+            if end_bot_attack[1] == True:
+                if tournament_mode == True:
+                    if now_move == "X":
+                        X_score, O_score, field, now_move, winner_found = ClearField(True, "X", X_score, O_score, screen)
+                        num_move = 0
+                    else:
+                        X_score, O_score, field, now_move, winner_found = ClearField(True, "O", X_score, O_score, screen)
+                        num_move = 0
+                else:
+                    if now_move == "X":
+                        screen.blit(CrossWon, (40, 224))
+                    elif now_move == "O":
+                        screen.blit(NoughtWon, (40, 224))
+                    winner_found = True
+
+            print("qqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqq")
+            print(coords)
+            num_move += 1
+
+            field.PrintField()
+
+            if now_move == "X":
+                now_move = "O"
+            else:
+                now_move = "X"
+
         for event in pg.event.get():
             if event.type == pg.QUIT:
                 is_game = False
@@ -83,6 +116,7 @@ def NoughtsAndCrosses():
             elif event.type == pg.MOUSEBUTTONDOWN:
                 x, y = pg.mouse.get_pos()
                 print(x, y)
+                print("wwwwwwwwwwwwwwwwwwwwwwwwwwwwwww")
 
                 if (280 <= x <= 592) and (160 <= y <= 472) and (winner_found == False or tournament_mode):
                     print('----------1')
@@ -95,8 +129,10 @@ def NoughtsAndCrosses():
                         if tournament_mode == True:
                             if now_move == "X":
                                 X_score, O_score, field, now_move, winner_found = ClearField(True, "X", X_score, O_score, screen)
+                                num_move = 0
                             else:
                                 X_score, O_score, field, now_move, winner_found = ClearField(True, "O", X_score, O_score, screen)
+                                num_move = 0
                         else:
                             if now_move == "X":
                                 screen.blit(CrossWon, (40, 224))
@@ -110,15 +146,19 @@ def NoughtsAndCrosses():
                             screen.blit(Draw, (16, 224))
                         elif tournament_mode == True:
                             X_score, O_score, field, now_move, winner_found = ClearField(False, None, X_score, O_score, screen)
+                            num_move = 0
                     
                     if end_attack[0]:
                         if now_move == "X":
                             now_move = "O"
                         else:
                             now_move = "X"
+                        
+                    num_move += 1
 
                 elif ((336 <= x <= 536) and (488 <= y <= 576)) or ((328 <= x <= 544) and (496 <= y <= 568)) or ((320 <= x <= 552) and (504 <= y <= 560)):
                     X_score, O_score, field, now_move, winner_found = ClearField(False, None, X_score, O_score, screen)
+                    num_move = 0
             
                 elif (x - 63)**2 + (y - 63)**2 <= 60**2 :
                     print("--------", x, y)
