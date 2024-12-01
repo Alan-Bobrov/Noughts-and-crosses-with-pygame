@@ -29,7 +29,7 @@ def NoughtsAndCrosses():
     num_move = 0
     play_with_bot = True
     bot = Bot()
-    settings = False
+    settings = True
     digits = {
         "0": Zero,
         "1": One,
@@ -80,6 +80,9 @@ def NoughtsAndCrosses():
             screen.blit(Cross, (496,  48))
         else:
             screen.blit(Nought, (496,  48))
+        
+        if settings == True:
+            screen.blit(SettingsMenu, (8, 152))
 
         if play_with_bot == True and winner_found == False and num_move % 2 == 1:
             coords = bot.attack(field)
@@ -163,6 +166,14 @@ def NoughtsAndCrosses():
             
                 elif (x - 63)**2 + (y - 63)**2 <= 60**2 :
                     print("--------", x, y)
+                    
+                    screen = pg.display.set_mode((600, 600))
+                    screen.fill((255, 255, 255))
+                    screen.blit(FieldImg, (0, 0))
+                    if settings:
+                        settings = False
+                    else:
+                        settings = True
                 
                 elif tournament_mode == True:
                     if ((32 <= x <= 232) and (488 <= y <= 576)) or ((24 <= x <= 240) and (496 <= y <= 568)) or ((16 <= x <= 248) and (504 <= y <= 560)):
