@@ -8,6 +8,7 @@ except:
     import pygame as pg
 
 from loads_images import *
+from random import randint
 
 class Field:
     def __init__(self) -> None:
@@ -24,7 +25,7 @@ class Field:
         print()
         print()
 
-    def DrawField(self, screen):
+    def DrawField(self, screen) -> None:
         for i in self.field:
             for j in i:
                 if j[1] == "X":
@@ -32,7 +33,7 @@ class Field:
                 elif j[1] == "O":
                     screen.blit(Nought, (j[0][0], j[0][1]))
 
-    def CountFreePlace(self):
+    def CountFreePlace(self) -> int:
         c = 0
         for i in self.field:
             for j in i:
@@ -58,7 +59,7 @@ class Field:
         
         return False
 
-    def Attack(self, x, y, who_attack) -> bool:
+    def Attack(self, x, y, who_attack) -> tuple:
         if self.field[y][x][1] == "-":
             self.field[y][x][1] = who_attack
             return True, self.TestEndGame()
@@ -66,9 +67,16 @@ class Field:
             return False, False
 
 class Bot:
-    def __init__(self, name="funny bot :)") -> None: 
+    def __init__(self, name="funny bot :)", hard="normal") -> None: 
         self.name = name
 
+    
+    def attack(self, field) -> tuple:
+        while True:
+            x = randint(0, 2)
+            y = randint(0, 2)
+            if field.field[y][x][1] == "-":
+                return x, y
 # f = Field()
 # f.PrintField()
 # print(f.Attack(0, 2, "X"))
