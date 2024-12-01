@@ -23,3 +23,5 @@ Nought = Load("nought")
 CrossWon = Load("cross won")
 NoughtWon = Load("nought won")
 Draw = Load("draw")
+
+SettingsMenu = Load("settings menu")
