@@ -29,6 +29,7 @@ def NoughtsAndCrosses():
     num_move = 0
     play_with_bot = True
     bot = Bot()
+    settings = False
     digits = {
         "0": Zero,
         "1": One,
