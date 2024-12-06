@@ -66,7 +66,7 @@ def NoughtsAndCrosses():
 
 
     while is_game:
-        # Different 
+        # Game window output
         screen.blit(FieldImg, (0, 0))
         field.DrawField(screen)
         if tournament_mode == True and settings == False:
@@ -167,7 +167,8 @@ def NoughtsAndCrosses():
                             now_move = "X"
                         
                     num_move += 1
-
+                
+                # Clear game field
                 elif ((336 <= x <= 536) and (488 <= y <= 576)) or ((328 <= x <= 544) and (496 <= y <= 568)) or ((320 <= x <= 552) and (504 <= y <= 560)):
                     X_score, O_score, field, now_move, winner_found = ClearField(False, None, X_score, O_score, screen)
                     num_move = 0
