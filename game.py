@@ -22,7 +22,7 @@ def NoughtsAndCrosses():
     is_game = True
     infinite_mode = False
     now_move = "X" # X or O
-    tournament_mode = False
+    tournament_mode = True
     X_score = 0
     O_score = 0
     winner_found = False
@@ -65,7 +65,7 @@ def NoughtsAndCrosses():
     while is_game:
         screen.blit(FieldImg, (0, 0))
         field.DrawField(screen)
-        if tournament_mode == True:
+        if tournament_mode == True and settings == False:
             screen.blit(TournamentMenu, (0, 152))
             O_score_str = str(O_score)
             X_score_str = str(X_score)
@@ -120,7 +120,6 @@ def NoughtsAndCrosses():
             elif event.type == pg.MOUSEBUTTONDOWN:
                 x, y = pg.mouse.get_pos()
                 print(x, y)
-                print("wwwwwwwwwwwwwwwwwwwwwwwwwwwwwww")
 
                 if (280 <= x <= 592) and (160 <= y <= 472) and (winner_found == False or tournament_mode):
                     print('----------1')
