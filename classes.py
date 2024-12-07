@@ -33,11 +33,11 @@ class Field:
                 elif j[1] == "O":
                     screen.blit(Nought, (j[0][0], j[0][1]))
 
-    def CountFreePlace(self) -> int:
+    def CountSomething(self, something="-") -> int:
         c = 0
         for i in self.field:
             for j in i:
-                if j[1] == "-":
+                if j[1] == something:
                     c += 1
         return c
     
@@ -65,6 +65,16 @@ class Field:
             return True, self.TestEndGame()
         else:
             return False, False
+        
+    def Aging(self, pr=False):
+        for i in self.field:
+            for j in i:
+                if j[1] != "-":
+                    j[2] = j[2] + 1
+                if pr:
+                    print(j[2], end=" ")
+            if pr:
+                print()
 
 class Bot:
     def __init__(self, name="funny bot :)", hard="normal") -> None: 
