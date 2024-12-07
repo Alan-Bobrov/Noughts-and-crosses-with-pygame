@@ -26,6 +26,7 @@ def NoughtsAndCrosses():
     winner_found = False
     num_move = 0
     bot = Bot()
+    end_attack = [False, False]
 
     settings = True
     play_with_bot = True
@@ -100,12 +101,12 @@ def NoughtsAndCrosses():
                     screen.blit(CrossWon, (40, 224))
                 elif now_move == "O":
                     screen.blit(NoughtWon, (40, 224))
-            elif winner_found == False and field.CountFreePlace() == 0:
+            elif winner_found == False and field.CountSomething() == 0:
                 if tournament_mode == False:
                     screen.blit(Draw, (16, 224))
 
         # The bot's move, if it is active
-        if play_with_bot == True and winner_found == False and num_move % 2 == 1:
+        if play_with_bot == True and winner_found == False and num_move % 2 == 1 and end_attack[0] != False:
             coords = bot.attack(field)
             end_bot_attack = field.Attack(coords[0], coords[1], "O")
             if end_bot_attack[1] == True:
@@ -117,19 +118,56 @@ def NoughtsAndCrosses():
                         X_score, O_score, field, now_move, winner_found = ClearField(True, "O", X_score, O_score, screen)
                         num_move = 0
                 else:
-                    print("test")
                     winner_found = True
 
-            # print("qqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqq")
-            # print(coords)
+            if winner_found == False:
+                field.Aging()
             num_move += 1
-            field.PrintField()
+            #field.PrintField()
 
             if winner_found == False:
                 if now_move == "X":
                     now_move = "O"
                 else:
                     now_move = "X"
+
+        # Code for endless/dying mode (DieM)
+        if infinite_mode == True and winner_found == False:
+            if field.CountSomething("O") >= 3:
+                list_O = []
+                for i in range(3):
+                    for j in range(3):
+                        if field.field[i][j][1] == "O":
+                            list_O.append([field.field[i][j][2], (i, j)])
+                list_O.sort(reverse=True)
+
+                while field.CountSomething("O") >= 3:
+                    dying_O = list_O[0]
+                    del list_O[0]
+                    field.field[dying_O[1][0]][dying_O[1][1]][1] = "-"
+                    field.field[dying_O[1][0]][dying_O[1][1]][2] = 0
+
+                    screen = pg.display.set_mode((600, 600))
+                    screen.fill((255, 255, 255))
+                    screen.blit(FieldImg, (0, 0))
+
+            if field.CountSomething("X") >= 3:
+                list_X = []
+                for i in range(3):
+                    for j in range(3):
+                        if field.field[i][j][1] == "X":
+                            list_X.append([field.field[i][j][2], (i, j)])
+                list_X.sort(reverse=True)
+
+                while field.CountSomething("X") >= 3:
+                    dying_X = list_X[0]
+                    del list_X[0]
+                    field.field[dying_X[1][0]][dying_X[1][1]][1] = "-"
+                    field.field[dying_X[1][0]][dying_X[1][1]][2] = 0
+
+                    screen = pg.display.set_mode((600, 600))
+                    screen.fill((255, 255, 255))
+                    screen.blit(FieldImg, (0, 0))
 
         # Interaction with the game window
         for event in pg.event.get():
@@ -143,7 +181,7 @@ def NoughtsAndCrosses():
                 if (280 <= x <= 592) and (160 <= y <= 472) and (winner_found == False or tournament_mode):
                     x, y = СhangeСoordinates(x, y)
                     end_attack = field.Attack(x, y, now_move)
-                    field.PrintField()
+                    #field.PrintField()
 
                     if end_attack[1] == True:
                         if tournament_mode == True:
@@ -156,7 +194,10 @@ def NoughtsAndCrosses():
                         else:
                             winner_found = True
 
-                    if winner_found == False and field.CountFreePlace() == 0 and tournament_mode == True:
+                    if winner_found == False:
+                            field.Aging()
+
+                    if winner_found == False and field.CountSomething() == 0 and tournament_mode == True:
                             X_score, O_score, field, now_move, winner_found = ClearField(False, None, X_score, O_score, screen)
                             num_move = 0
                     
@@ -196,10 +237,11 @@ def NoughtsAndCrosses():
                 if settings == True:
                     if (168 <= x <= 256):
                         if (168 <= y <= 256):
-                            if play_with_bot:
-                                play_with_bot = False
-                            else:
-                                play_with_bot = True
+                            if winner_found == False and field.CountSomething() != 0:
+                                if play_with_bot:
+                                    play_with_bot = False
+                                else:
+                                    play_with_bot = True
 
                         elif (168 + 112 <= y <= 256 + 112):
                             if tournament_mode:
