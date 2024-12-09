@@ -98,11 +98,16 @@ class Bot:
 
     
     def attack(self, field) -> tuple:
+        counter = 0
         while True:
+            counter += 1
             x = randint(0, 2)
             y = randint(0, 2)
             if field.field[y][x][1] == "-":
                 return x, y
+            if counter == 500:
+                return 0, 0
+
             
 # f = Field()
 # f.PrintField()
