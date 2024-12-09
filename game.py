@@ -169,6 +169,7 @@ def NoughtsAndCrosses():
             elif event.type == pg.MOUSEBUTTONDOWN:
                 x, y = pg.mouse.get_pos()
                 #print(x, y)
+                #print(end_attack, num_move)
                 
                 # Attack game field
                 if (280 <= x <= 592) and (160 <= y <= 472) and (winner_found == False or tournament_mode):
