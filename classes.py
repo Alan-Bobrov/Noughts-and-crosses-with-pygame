@@ -34,12 +34,28 @@ class Field:
                     screen.blit(Nought, (j[0][0], j[0][1]))
 
     def CountSomething(self, something="-") -> int:
-        c = 0
+        counter = 0
         for i in self.field:
             for j in i:
                 if j[1] == something:
-                    c += 1
-        return c
+                    counter += 1
+        return counter
+    
+    def AllCoordsSomething(self, something="-", age_sort=True) -> list:
+        list_something = []
+        if age_sort:
+            for i in range(3):
+                for j in range(3):
+                    if self.field[i][j][1] == something:
+                        list_something.append([self.field[i][j][2], (i, j)])
+            list_something.sort(reverse=True)
+            return list_something
+        else:
+            for i in range(3):
+                for j in range(3):
+                    if self.field[i][j][1] == something:
+                        list_something.append([self.field[i][j][2], (i, j)])
+            return list_something
     
     def TestEndGame(self) -> bool:
         field = self.field
@@ -66,7 +82,7 @@ class Field:
         else:
             return False, False
         
-    def Aging(self, pr=False):
+    def Aging(self, pr=False) -> None:
         for i in self.field:
             for j in i:
                 if j[1] != "-":
@@ -77,7 +93,7 @@ class Field:
                 print()
 
 class Bot:
-    def __init__(self, name="funny bot :)", hard="normal") -> None: 
+    def __init__(self, name="funny bot :)") -> None: 
         self.name = name
 
     
@@ -87,6 +103,7 @@ class Bot:
             y = randint(0, 2)
             if field.field[y][x][1] == "-":
                 return x, y
+            
 # f = Field()
 # f.PrintField()
 # print(f.Attack(0, 2, "X"))
