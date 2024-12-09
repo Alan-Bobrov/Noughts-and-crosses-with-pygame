@@ -10,7 +10,7 @@ def СhangeСoordinates(x, y) -> tuple:
     
     return new_x, new_y
 
-def ClearField(score, who, X_score, O_score, screen):
+def ClearField(score, who, X_score, O_score, screen) -> tuple:
         if score:
             if who == "X":
                 X_score += 1
