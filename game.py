@@ -255,4 +255,4 @@ def NoughtsAndCrosses():
         pg.display.flip()
 
 
-NoughtsAndCrosses()
+#NoughtsAndCrosses()
