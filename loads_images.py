@@ -23,8 +23,11 @@ Nought = Load("nought")
 CrossWon = Load("cross won")
 NoughtWon = Load("nought won")
 Draw = Load("draw")
+Who = Load("who")
 
 SettingsMenu = Load("settings menu")\
 
 On = Load("on")
 Off = Load("off")
+
+WhiteSquare = Load("white square")
